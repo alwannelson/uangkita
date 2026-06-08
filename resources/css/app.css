@@ -1,11 +1,95 @@
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap");
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@layer base {
+    body {
+        font-family: "Nunito Sans", sans-serif;
+        background-color: #f3f4f6;
+        color: #1f2937;
+    }
+}
+
+:root {
+    --primary: #9cc5a1;
+    --primary-dark: #7a9e7f;
+
+    --category-couple: #31081f;
+    --category-couple-text: #ffffff;
+
+    --category-family: #e5ec97;
+    --category-family-text: #1f2937;
+
+    --category-friend: #808f85;
+    --category-friend-text: #ffffff;
+
+    --category-organization: #dce0d9;
+    --category-organization-text: #374151;
+
+    --category-individual: #50514f;
+    --category-individual-text: #ffffff;
+}
+
+.bg-couple {
+    background-color: #31081f;
+}
+.text-couple {
+    color: #31081f;
+}
+
+.bg-family {
+    background-color: #e5ec97;
+}
+.text-family {
+    color: #e5ec97;
+}
+
+.bg-friend {
+    background-color: #808f85;
+}
+.text-friend {
+    color: #808f85;
+}
+
+.bg-organization {
+    background-color: #dce0d9;
+}
+.text-organization {
+    color: #dce0d9;
+}
+
+.bg-individual {
+    background-color: #50514f;
+}
+.text-individual {
+    color: #50514f;
+}
+
+@keyframes writeErase {
+    0% {
+        width: 0%;
+        left: 0%;
+    }
+    25% {
+        width: 100%;
+        left: 0%;
+    }
+    50% {
+        width: 100%;
+        left: 0%;
+    }
+    75% {
+        width: 0%;
+        left: 0%;
+    }
+    100% {
+        width: 0%;
+        left: 0%;
+    }
+}
+
+.animate-write-erase {
+    animation: writeErase 4s infinite;
 }

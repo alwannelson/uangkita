@@ -4,24 +4,29 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    
     /**
      * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    *
+    * @var list<string>
+    */
+    protected $table = 'users';
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'pin',
     ];
 
     /**
@@ -31,6 +36,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'pin',
         'remember_token',
     ];
 
@@ -44,6 +50,29 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'pin' => 'hashed',
         ];
+    }
+
+    public function createdGroups()
+    {
+        return $this->hasMany(SavingGroup::class, 'created_by');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(SavingGroup::class, 'group_members', 'user_id', 'group_id')
+            ->withPivot('role', 'joined_at')
+            ->withTimestamps();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function groupMembers()
+    {
+        return $this->hasMany(GroupMember::class);
     }
 }
